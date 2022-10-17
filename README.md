@@ -14,3 +14,15 @@ https://github.com/golang-migrate/migrate
 
 ## Swagger
 - https://github.com/alexm24/ticket-booking/blob/main/internal/handler/api/api.swagger.yaml
+
+##Query 
+#### Post http://localhost:4000/api/v1/route
+{
+"route": "Омск-Москва"
+}
+
+response:
+{
+"id": "a7d00b0d-f23a-4ddc-a5da-8aecf316ba8a",
+"route": "Омск-Москва"
+}

@@ -8,6 +8,8 @@ import (
 	"os/signal"
 	"syscall"
 
+	_ "github.com/lib/pq"
+
 	"github.com/alexm24/ticket-booking/internal/config"
 	"github.com/alexm24/ticket-booking/internal/handler"
 	"github.com/alexm24/ticket-booking/internal/repository"

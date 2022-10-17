@@ -14,5 +14,5 @@ CREATE TABLE passengers
     fullname VARCHAR(255) NOT NULL,
     age      serial       NOT NULL,
     phone    VARCHAR(50)  NOT NULL,
-    email    VARCHAR(100) NOT NULL,
+    email    VARCHAR(100) NOT NULL
 );
