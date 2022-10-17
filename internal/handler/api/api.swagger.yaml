@@ -1,32 +1,34 @@
 openapi: 3.0.2
 info:
   version: "1.0.0"
-  title: VP
+  title: Ticket booking
   description: Api for ticket booking
   contact:
-    name: tb
+    name: Ticket booking
     url: http://localhost
     email: asmaslik@mts.ru
 servers:
   - url: http://localhost
 tags:
-  - name: admin
-    description: Admin
+  - name: routes
+    description: маршруты самолета
+  - name: passengers
+    description: Бронирования для пассажиров
 
 paths:
-  /admin:
+  /route:
     post:
       tags:
-        - admin
-      summary: Sends a request with a user
-      description: Sends a request with a user
-      operationId: checkAdmin
+        - routes
+      summary: добавить маршрут
+      description: добавляет маршрут самолета
+      operationId: addRoute
       requestBody:
-        description: Object with user
+        description: объект маршрута
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SUsername'
+              $ref: '#/components/schemas/SRoute'
         required: true
       responses:
         200:
@@ -34,5 +36,66 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SAdmin'
+                allOf:
+                  - $ref: '#/components/schemas/SIdentifier'
+                  - $ref: '#/components/schemas/SRoute'
 
+  /passengers/{route_id}:
+    post:
+      tags:
+        - passengers
+      summary: добавляем пассажира рейса
+      description: добавляем пассажира рейса
+      operationId: addPassenger
+      parameters:
+        - name: route_id
+          in: path
+          description: id маршрута самолета
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: объект пассажир
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SPassenger'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SIdentifier'
+                  - $ref: '#/components/schemas/SPassenger'
+
+components:
+  schemas:
+
+    SIdentifier:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+
+    SRoute:
+      type: object
+      properties:
+        route:
+          type: string
+
+    SPassenger:
+      type: object
+      properties:
+        fullname:
+          type: string
+        age:
+          type: integer
+        phone:
+          type: string
+        email:
+          type: string

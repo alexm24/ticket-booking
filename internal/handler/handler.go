@@ -1,13 +1,16 @@
 package handler
 
 import (
-	"github.com/alexm24/ticket-booking/internal/service"
+	"github.com/alexm24/ticket-booking/internal/handler/route"
 	"net/http"
 	"path"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
+
+	"github.com/alexm24/ticket-booking/internal/handler/api"
+	"github.com/alexm24/ticket-booking/internal/service"
 )
 
 type Handler struct {
@@ -19,7 +22,7 @@ func NewHandler(services *service.Service) *Handler {
 }
 
 func (h *Handler) InitRoutes(basePath string) http.Handler {
-	//routes := route.NewRoute(h.services)
+	routes := route.NewRoute(h.services)
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 	router.Use(cors.New(cors.Options{
@@ -36,8 +39,7 @@ func (h *Handler) InitRoutes(basePath string) http.Handler {
 
 	router.Route(path.Join("/", basePath), func(router chi.Router) {
 		router.Use(middleware.NoCache)
-		// router.Mount("/", api.Handler(routes))
-		router.Mount("/", nil)
+		router.Mount("/", api.Handler(routes))
 	})
 
 	return router
