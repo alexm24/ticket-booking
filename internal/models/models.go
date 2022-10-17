@@ -14,4 +14,5 @@ type Route struct {
 type Passenger struct {
 	api.SIdentifier
 	api.SPassenger
+	RouteId string `json:"-" db:"route_id"`
 }
