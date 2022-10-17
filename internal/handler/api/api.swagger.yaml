@@ -1,0 +1,38 @@
+openapi: 3.0.2
+info:
+  version: "1.0.0"
+  title: VP
+  description: Api for ticket booking
+  contact:
+    name: tb
+    url: http://localhost
+    email: asmaslik@mts.ru
+servers:
+  - url: http://localhost
+tags:
+  - name: admin
+    description: Admin
+
+paths:
+  /admin:
+    post:
+      tags:
+        - admin
+      summary: Sends a request with a user
+      description: Sends a request with a user
+      operationId: checkAdmin
+      requestBody:
+        description: Object with user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SUsername'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SAdmin'
+
